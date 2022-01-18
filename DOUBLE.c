@@ -1,4 +1,3 @@
-
 #include<stdio.h>
 #include<stdlib.h>
 struct node
@@ -60,7 +59,6 @@ default:
 printf("Please enter valid choice..");
 }
 }
-
 }
 void insertion_beginning()
 {
@@ -141,7 +139,7 @@ else
 temp=head;
 printf("Enter the location:");
 scanf("%d",&loc);
-for(i=0;i<loc;i++)
+for(i=0;i<-1;i++)
 {
 temp=temp->next;
 if(temp==NULL)
@@ -198,7 +196,7 @@ printf("\nNode deleted\n");
 else
 {
 ptr=head;
-if(ptr->next!=NULL)
+while(ptr->next!=NULL)
 {
 ptr=ptr->next;
 }
@@ -278,4 +276,3 @@ printf("\nItem not found\n");
 }
 }
 }
-
