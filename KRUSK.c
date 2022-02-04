@@ -141,5 +141,5 @@ void main()
 	Graph[5][6]=0;
 	kruskalAlgo();
 	print();
-	
+	 
 }
