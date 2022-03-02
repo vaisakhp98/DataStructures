@@ -90,7 +90,6 @@ void print()
 void main()
 {
 	int i,j,total_cost;
-	
 	n=6;
 	Graph[0][0]=0;
 	Graph[0][1]=4;
@@ -141,5 +140,4 @@ void main()
 	Graph[5][6]=0;
 	kruskalAlgo();
 	print();
-	 
 }
