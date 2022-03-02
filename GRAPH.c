@@ -1,5 +1,5 @@
 #include<stdio.h>
-#include<conio.h>
+#include<stdlib.h>
 struct node
 {
 	int vertex;
@@ -42,7 +42,6 @@ void main()
 	}
 	dfs();
 	dfs1();
-	getch();
 }
 void dfs()
 {
@@ -117,3 +116,4 @@ void dfs1()
 		printf("{");
 		dfsvisit1(ver);printf("}\n");
 	}
+}
