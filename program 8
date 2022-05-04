@@ -1,0 +1,126 @@
+student@student-OptiPlex-3050:/media/student/Data/DBMS vaiskah$ sudo mysql -u root -p
+[sudo] password for student: 
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 33
+Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1 Ubuntu 16.04
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database employees;
+Query OK, 1 row affected (0.01 sec)
+
+MariaDB [(none)]> use employees;
+Database changed
+MariaDB [employees]> create table employee(emp_id int,emp_name varcha(40),city varchar(20),salary int,age int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'varcha(40),city varchar(20),salary int,age int)' at line 1
+MariaDB [employees]> create table employee(emp_id int,emp_name varchar(40),city varchar(20),salary int,age int);
+Query OK, 0 rows affected (0.21 sec)
+
+MariaDB [employees]> create table project(projectno int PRIMARY KEY,
+    ->     ->          empid int references employee1.empid,
+    -> department varchar(30));
+[1]+  Stopped                 sudo mysql -u root -p
+student@student-OptiPlex-3050:/media/student/Data/DBMS vaiskah$ sudo mysql -u root -p
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 34
+Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1 Ubuntu 16.04
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use employees;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [employees]> create table projects(project_no int ,emp_id int,departments);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1
+MariaDB [employees]> create table projects(project_no int ,emp_id int,departments varchar(20));
+Query OK, 0 rows affected (0.20 sec)
+
+MariaDB [employees]> insert into employee values(1,'Angelina','Chicago',200000,30);
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [employees]> insert into employee values(2,'Robert','Austin',300000,26),(3,'Christian','Denver',100000,42),(4,'Kristen','Washington',500000,29),(5,'Russell','Los Angels',200000,36),(6,'Marry','Canada',600000,48);
+Query OK, 5 rows affected (0.05 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [employees]> select * from employee;
++--------+-----------+------------+--------+------+
+| emp_id | emp_name  | city       | salary | age  |
++--------+-----------+------------+--------+------+
+|      1 | Angelina  | Chicago    | 200000 |   30 |
+|      2 | Robert    | Austin     | 300000 |   26 |
+|      3 | Christian | Denver     | 100000 |   42 |
+|      4 | Kristen   | Washington | 500000 |   29 |
+|      5 | Russell   | Los Angels | 200000 |   36 |
+|      6 | Marry     | Canada     | 600000 |   48 |
++--------+-----------+------------+--------+------+
+6 rows in set (0.00 sec)
+
+MariaDB [employees]> insert into projects values(101,1,'Testing'),(102,2,'Development'),(103,3,'Designing'),(104,4,'Development');
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [employees]> select * from projects;
++------------+--------+-------------+
+| project_no | emp_id | departments |
++------------+--------+-------------+
+|        101 |      1 | Testing     |
+|        102 |      2 | Development |
+|        103 |      3 | Designing   |
+|        104 |      4 | Development |
++------------+--------+-------------+
+4 rows in set (0.00 sec)
+
+MariaDB [employees]> select e.emp_name, p.departments from employee e inner join projects p on p.emp_id = e.emp_id;
++-----------+-------------+
+| emp_name  | departments |
++-----------+-------------+
+| Angelina  | Testing     |
+| Robert    | Development |
+| Christian | Designing   |
+| Kristen   | Development |
++-----------+-------------+
+4 rows in set (0.00 sec)
+
+MariaDB [employees]> select e.emp_name, p.departments from employee e left join projects p on p.emp_id = e.emp_id;
++-----------+-------------+
+| emp_name  | departments |
++-----------+-------------+
+| Angelina  | Testing     |
+| Robert    | Development |
+| Christian | Designing   |
+| Kristen   | Development |
+| Russell   | NULL        |
+| Marry     | NULL        |
++-----------+-------------+
+6 rows in set (0.00 sec)
+
+MariaDB [employees]> select e.emp_name, p.departments from employee e right join projects p on p.emp_id = e.emp_id;
++-----------+-------------+
+| emp_name  | departments |
++-----------+-------------+
+| Angelina  | Testing     |
+| Robert    | Development |
+| Christian | Designing   |
+| Kristen   | Development |
++-----------+-------------+
+4 rows in set (0.00 sec)
+
+MariaDB [employees]> select e.emp_name, p.departments from employee e join projects p on p.emp_id = e.emp_id;
++-----------+-------------+
+| emp_name  | departments |
++-----------+-------------+
+| Angelina  | Testing     |
+| Robert    | Development |
+| Christian | Designing   |
+| Kristen   | Development |
++-----------+-------------+
+4 rows in set (0.00 sec)
+
